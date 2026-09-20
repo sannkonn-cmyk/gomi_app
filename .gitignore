@@ -1,0 +1,21 @@
+# 音源ファイルはコミットしない（権利・容量）
+# リポジトリに入るのは tools/ で抽出した数値だけ
+*.mp3
+*.wav
+*.m4a
+*.aac
+*.flac
+*.ogg
+*.opus
+
+# 解析用の Python 環境
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
