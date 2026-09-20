@@ -28,8 +28,9 @@ export default [
         trs.slice(0, 8).forEach(x => {
           const n = 2 + Math.round(x.bright * 3);
           for (let i = 0; i < n; i++) {
+            // 連打は重なるので1発あたりを絞る（重ねるとピークが1.0を超える）
             metal(c, ch, t + i * 0.055, rs(110, 320, x.bright) * (1 + i * 0.04),
-                  GAKO_RATIOS, 0.16, 0.2);
+                  GAKO_RATIOS, 0.16, 0.13 * Math.pow(0.92, i));
           }
           t += n * 0.055 + 0.12;
         });
