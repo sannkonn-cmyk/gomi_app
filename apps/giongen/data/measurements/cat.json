@@ -1,0 +1,38 @@
+{
+  "_note": "猫ミームは単一ネタではなくジャンル。音響的に別物なので別スタイルにしている",
+  "catDance": {
+    "label": "猫ミーム ダンス", "durationSec": 12.353, "peak": 0.471,
+    "bpm": 137, "eighthMs": 218, "quarterMs": 436,
+    "onsetIntervalsMs": [211.6, 217.6, 217.5, 215.5, 433.1, 444.9],
+    "subBassMeanPct": 33.8, "subBassMaxPct": 93.8,
+    "centroidHz": 1018,
+    "notes": "BPM推定とオンセット間隔が一致し裏が取れている。極端な低域偏重"
+  },
+  "chipiChapa": {
+    "label": "チピチャパ", "durationSec": 13.119, "peak": 0.329,
+    "bpm": 149, "eighthMs": 201,
+    "f0Hz": 109.0, "note": "A2",
+    "detunePct": 4,
+    "centroidHz": 4316, "band8kTo16kPct": 22.0,
+    "subBassMeanPct": 8.0,
+    "notes": "ダンスと真逆の高域偏重"
+  },
+  "nuru": {
+    "label": "ぬーる（鳴き声）", "durationSec": 6.896, "peak": 0.671,
+    "f0MedianHz": 848, "f0Note": "G#5", "f0SpanSemitones": 34.2,
+    "F1Hz": 1299, "F2Hz": 1767,
+    "formantRatioVsHuman": {"F1": 1.62, "F2": 1.36},
+    "attackMs": 13, "decay20dBMs": 221,
+    "centroidHz": 1724,
+    "notes": "猫は声道が短いためF1が大きく上がりF1とF2が接近する"
+  },
+  "haa": {
+    "label": "は？", "durationSec": 0.541, "peak": 0.885,
+    "f0RangeHz": [123, 160],
+    "f0Contour": "132.8 → 122.5（谷）→ 159.8（上昇）",
+    "F1Hz": 510, "F2Hz": 915, "closestVowel": "o",
+    "band250To1kPct": 56.9, "centroidHz": 1393,
+    "notes": "数値は猫ではなく成人男性の声。人声を猫の映像に当てた素材と思われる"
+  },
+  "_source": "ユーザー提示の「中国猫ダンス 26種類まとめ」より。BGMは台湾の児童曲「洗澡歌」(Hoop Kids 圈圈兒童)と推定・確実性B"
+}

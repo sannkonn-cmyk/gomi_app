@@ -75,7 +75,7 @@ button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
 .kb-grid button{min-height:52px; font-size:24px; font-weight:800; padding:0; border-radius:10px}
 .kb-grid button.blank{visibility:hidden}
 .kb-tools{display:flex; gap:6px; margin-top:8px; flex-wrap:wrap}
-.kb-tools button{flex:1 1 0; min-width:64px; font-size:15px}
+.kb-tools button{flex:1 1 30%; min-width:92px; font-size:14px; white-space:nowrap}
 .kb-tools button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
 #txt{
   width:100%; margin-top:10px; font-family:inherit; font-size:17px; font-weight:600;

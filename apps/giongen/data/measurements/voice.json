@@ -1,0 +1,40 @@
+{
+  "_note": "声の質感を持つスタイル用。発音のためではなく、共鳴とざらつきの再現に使う",
+  "roar": {
+    "label": "咆哮", "durationSec": 10.093, "peak": 0.271,
+    "f0MedianHz": 408, "f0Note": "G#4", "f0SpanSemitones": 34.6,
+    "F1Hz": 827, "F2Hz": 1382, "closestVowel": "a",
+    "jitterPct": 9.31, "shimmerPct": 3.58, "hnrDb": 4.7, "subharmonicRatio": 0.329,
+    "centroidHz": 3313
+  },
+  "nnaa": {
+    "label": "ンアー", "durationSec": 1.161, "peak": 0.728,
+    "f0MedianHz": 408, "f0Note": "G#4", "f0SpanSemitones": 24.9,
+    "F1Hz": 878, "F2Hz": 1464, "closestVowel": "a",
+    "jitterPct": 6.42, "shimmerPct": 8.18, "hnrDb": 4.4, "subharmonicRatio": 0.252,
+    "octaveJumpHz": [394, 788],
+    "band1kTo2kPct": 35.1,
+    "notes": "咆哮とf0中央値が1Hzも違わず一致。語尾はちょうど1オクターブ跳躍。F2帯に35%集中するためF2ゲインをF1より上げる"
+  },
+  "biyaa": {
+    "label": "びゃあ", "durationSec": 1.413, "peak": 0.284,
+    "f0MedianHz": 262, "f0SpanSemitones": 31.3,
+    "F1Hz": 472, "F2Hz": 1506,
+    "jitterPct": 14.25, "shimmerPct": 5.71, "hnrDb": 1.4, "subharmonicRatio": 0.245,
+    "vowelSequence": ["e","u","e","e","a","a","a","e","e","u","u"],
+    "notes": "HNR最小=最も雑音が多い。spectral flatnessでは検出できなかった"
+  },
+  "madTrack": {
+    "label": "MADトラック（BGM込み）", "durationSec": 37.227, "peak": 1.006,
+    "f0MedianHz": 444, "f0SpanSemitones": 42.0,
+    "F1p10": 435, "F1p90": 1053,
+    "notes": "伴奏込みのためf0追跡が混ざる。MAD加工のピッチ可動域の上限値として使う"
+  },
+  "_synthesis": {
+    "がなりの3ツマミ": {
+      "ピッチ揺らぎ": "6〜15%",
+      "ノイズ混入": "HNR 1〜5dB 相当",
+      "サブハーモニクス": "f0の半分を 1/3 の音量で加算（二重声の正体）"
+    }
+  }
+}

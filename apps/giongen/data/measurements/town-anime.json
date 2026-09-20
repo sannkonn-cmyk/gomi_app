@@ -1,0 +1,85 @@
+{
+  "shopChime": {
+    "label": "入店音", "durationSec": 12.214, "peak": 1.000,
+    "lrCorrelation": -1.0, "phaseInverted": true,
+    "onsetsSec": [0.216, 2.722, 6.216, 8.722],
+    "intervalsMs": [2506, 3494, 2506],
+    "dyads": [
+      {"hz": [616.4, 778], "ratio": 1.26, "interval": "長3度", "note": "D#5"},
+      {"hz": [347.2, 464], "ratio": 1.34, "interval": "完全4度", "note": "F4"}
+    ],
+    "partialProfile": "3倍・5倍が強く2倍・4倍が弱い = チューブラーベル型",
+    "band500To1kPct": 46.4, "centroidHz": 2768,
+    "notes": "L/R完全逆相。単純平均するとほぼ無音になり正常なファイルを2度誤診した",
+    "copyright": "既存楽曲。メロディは再現せず音色のみ使用し、音高は入力文字列から生成する"
+  },
+  "payment": {
+    "label": "決済音", "durationSec": 1.802, "peak": 0.968,
+    "onsetsSec": [0.319, 0.613], "intervalMs": 293,
+    "note1": {"hz": 476, "detuneCluster": [476, 493, 514, 522], "spreadPct": [3, 10]},
+    "note2": {"hz": 441.4, "note": "A4", "attackMs": 8, "decay20dBMs": 199},
+    "centroidHz": 4219, "bandGt2kPct": 66.7
+  },
+  "eew": {
+    "label": "緊急地震速報", "durationSec": 9.102, "peak": 0.709,
+    "toneHz": 1174.9, "note": "D6",
+    "clusterHz": [1175, 1250], "clusterRatio": 1.06, "clusterInterval": "半音",
+    "attackMs": 100, "decay20dBMs": 163,
+    "intervalsMs": [2203, 499],
+    "centroidHz": 3986, "bandLt250Pct": 1.9, "bandGt2kPct": 63.0,
+    "safety": "おまかせ判定から除外・デフォルト非表示・選択時に警告・音量を下げる"
+  },
+  "evaImpact": {
+    "label": "エヴァ インパクトフラッシュ", "durationSec": 3.553, "peak": 0.685,
+    "f0Hz": 740.2, "note": "F#5",
+    "clusterHz": [704, 740, 779, 787, 852, 856, 1003],
+    "clusterStrengths": [0.96, 0.94, 0.93, 0.97, 0.94, 1.00, 0.94],
+    "attackMs": 156,
+    "centroidHz": 3956, "bandGt2kPct": 63.0,
+    "notes": "緊急地震速報と同じ半音クラスター。不穏さ=半音クラスターという仮説のn=2目"
+  },
+  "atsumori": {
+    "label": "熱盛", "durationSec": 3.135, "peak": 0.530,
+    "detuneClusters": [[118, 122, 125], [440, 459]], "detunePct": [2, 4],
+    "attackMs": 248,
+    "centroidHz": 3099, "bandLt250Pct": 15.4, "bandGt2kPct": 50.8
+  },
+  "stingerShingeki": {
+    "label": "スティンガー（鋭い打撃）", "durationSec": 1.022, "peak": 0.566,
+    "fundamentalHz": 31, "note": "B0",
+    "attackMs": 40,
+    "chordProgression": ["F/A", "Cdim (C-D#-F#)", "Bmaj (B-D#-F#)", "G (G-B-D-F#)"],
+    "subBassHz": [36, 48],
+    "centroidHz": 1058, "bandLt250Pct": 34.4
+  },
+  "stingerSwell": {
+    "label": "スティンガー（膨らむ）", "durationSec": 4.318, "peak": 0.175,
+    "fundamentalHz": 70.3, "note": "C#2",
+    "attackMs": 318, "strongestPartial": 5,
+    "centroidHz": 1388, "bandLt250Pct": 25.4
+  },
+  "stingerFmajor": {
+    "label": "スティンガー（Fメジャー）", "durationSec": 3.019, "peak": 0.813,
+    "fundamentalHz": 86.1, "note": "F2",
+    "attackMs": 204,
+    "partials": {"F2": 86, "C3": 131, "F3": 175, "A3": 219, "F4": 350},
+    "chord": "F major",
+    "centroidHz": 2594
+  },
+  "pokeCenter": {
+    "label": "回復音", "durationSec": 3.926, "peak": 0.416,
+    "f0Hz": 325.2, "note": "E4",
+    "dominantPartials": [3, 9, 15],
+    "harmonicProfile": "奇数倍音が支配的 = 矩形波",
+    "note2Interval": "長3度 (G#4 415Hz)",
+    "intervalMs": 904,
+    "centroidHz": 3254,
+    "copyright": "既存楽曲。音色のみ使用し旋律は入力文字列から生成する"
+  },
+  "regigigas": {
+    "label": "レジギガス", "durationSec": 5.132, "peak": 1.181,
+    "f0Hz": 67.3, "note": "C2", "fifthHz": 101,
+    "chord": "パワーコード（根音＋完全5度）",
+    "centroidHz": 3229, "bandGt2kPct": 50.6
+  }
+}

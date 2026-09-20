@@ -1,0 +1,72 @@
+{
+  "_note": "遊技機系。>2kHz が 45〜79% に偏るのが共通傾向（ただしセブフラ28.1%という反例あり・確実性B）",
+  "jugglerGako": {
+    "label": "ジャグラー ガコッ", "durationSec": 1.020, "peak": 1.373,
+    "f0Hz": 154.8, "note": "D#3",
+    "partials": [1.00, 1.23, 1.51, 2.24, 6.31, 6.38, 12.05],
+    "attackMs": 132, "decay20dBMs": 265,
+    "centroidHz": 3078, "bandLt250Pct": 8.6, "bandGt2kPct": 44.3,
+    "notes": "一部の成分比が音楽的音程に当たらない（1.23x等）。完全な金属共鳴ではなく調和成分との混在"
+  },
+  "jugglerJanbari": {
+    "label": "ジャグラー ジャンバリ", "durationSec": 16.485, "peak": 0.651,
+    "gridMs": 155, "bpm": 97,
+    "melodyNotes": ["C#4", "D4", "E4", "F4"],
+    "centroidHz": 3123, "bandLt250Pct": 9.7, "bandGt2kPct": 58.9,
+    "notes": "3.4〜3.9秒に上行ライン。155ms格子（その2倍が311ms）"
+  },
+  "sakibareDaito": {
+    "label": "先バレ（大都）", "durationSec": 3.204, "peak": 1.270,
+    "f0Hz": 927.3, "note": "A#5",
+    "partials": [1.00, 1.19, 1.64, 1.85],
+    "partialIntervals": ["同度", "長3度", "", ""],
+    "attackMs": 33, "sustainSec": 3.2,
+    "detunePct": [0.3, 0.7],
+    "centroidHz": 3944, "bandLt250Pct": 2.0, "bandGt2kPct": 58.2
+  },
+  "symphogear": {
+    "label": "シンフォギア", "durationSec": 14.341, "peak": 2.073,
+    "sustainedHz": 2950, "sustainedNote": "F#7",
+    "lowLayerHz": [65, 86],
+    "clusterRange": ["C7", "E7"],
+    "centroidHz": 4450, "bandLt250Pct": 3.7, "bandGt2kPct": 79.2,
+    "notes": "復号ピークが1.0超=ブリックウォール。全音源中2番目に明るい"
+  },
+  "godZoroi": {
+    "label": "ゴッド揃い", "durationSec": 8.853, "peak": 0.135,
+    "rootNote": "A#", "rootHz": [117.2, 468.8, 937.5, 1863.3],
+    "otherPartials": {"F5": 703.1, "G#5": 832.0, "C6": 1054.7},
+    "structure": [
+      {"from": 0, "to": 1.7, "what": "煽り（ピッチ急変が密集）"},
+      {"from": 1.7, "to": 5.0, "what": "立ち上がり"},
+      {"from": 5.0, "to": 8.85, "what": "A#5(937Hz)を持続・ベースA#3(233Hz)"}
+    ],
+    "centroidHz": 3335, "bandLt250Pct": 6.9, "bandGt2kPct": 54.4
+  },
+  "unknownKakuteion": {
+    "label": "謎の確定音", "durationSec": 12.514, "peak": 1.156,
+    "f0Hz": 411.8, "note": "G#4",
+    "partials": [1.00, 1.99, 2.98, 3.91],
+    "harmonicity": "整数倍=純粋な楽音（金属共鳴ではない）",
+    "silentGapSec": {"from": 3.00, "to": 3.50, "lengthMs": 500, "levelDb": -240},
+    "silenceApproach": "−19.7dB → −38.8dB の2段階で落としてから無音へ",
+    "sweeps": [
+      {"ms": 90, "semitones": 15.9}, {"ms": 70, "semitones": 9.7}
+    ],
+    "octaveStack": [1044, 2078, 2379],
+    "centroidHz": 3882, "bandLt250Pct": 3.4, "bandGt2kPct": 57.9
+  },
+  "sevenFlash": {
+    "label": "セブフラ", "durationSec": 10.752, "peak": 0.484,
+    "f0Hz": 149.4, "note": "D3", "strongestPartial": 3,
+    "detunePct": [4, 5],
+    "centroidHz": 2037, "bandLt250Pct": 9.6, "bandGt2kPct": 28.1,
+    "notes": "高域偏重の反例。80-2000Hzに均等分散し低中域が厚い"
+  },
+  "unicorn3000": {
+    "label": "ユニコーン 3000", "durationSec": 15.899, "peak": 0.742,
+    "centroidHz": 4771, "bandLt250Pct": 11.3, "bandGt2kPct": 69.7,
+    "onsetCount": 0,
+    "notes": "全音源中で重心が最高。高域3帯にほぼ均等分散。切れ目のない持続音"
+  }
+}
