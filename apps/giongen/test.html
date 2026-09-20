@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>スモークテスト — ぎおんジェネレーター</title>
+<style>
+body{font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;
+     margin:0;padding:20px;background:#12151a;color:#e8eef5;font-size:14px}
+h1{font-size:20px;margin:0 0 4px}
+p.sub{color:#8fa0b5;margin:0 0 16px}
+button{font:inherit;font-weight:700;background:#2d6cdf;color:#fff;border:0;
+       border-radius:8px;padding:10px 18px;cursor:pointer}
+table{border-collapse:collapse;width:100%;margin-top:16px;font-variant-numeric:tabular-nums}
+th,td{padding:5px 8px;border-bottom:1px solid #253040;text-align:left;white-space:nowrap}
+th{color:#8fa0b5;font-weight:600;font-size:12px;position:sticky;top:0;background:#12151a}
+td.n{text-align:right}
+.ok{color:#43d39e}.ng{color:#ff6b6b;font-weight:700}.warn{color:#ffc857}
+#summary{margin-top:14px;font-size:16px;font-weight:700}
+</style>
+</head>
+<body>
+<h1>スモークテスト</h1>
+<p class="sub">全スタイル × 全バリエーションを OfflineAudioContext でレンダリングし、
+「無音でない」「NaN を含まない」「クリップしていない」を検査します。
+音色そのものは判定できませんが、<b>エラーで無音という最悪のパターンは確実に潰せます</b>。</p>
+<button id="run" type="button">▶ テスト実行</button>
+<div id="summary"></div>
+<table id="tbl"><thead><tr>
+<th>スタイル</th><th>バリエーション</th><th>入力</th>
+<th class="n">RMS</th><th class="n">ピーク</th><th class="n">長さ</th><th>判定</th>
+</tr></thead><tbody></tbody></table>
+
+<script type="module">
+import { toMoras } from './js/kana.js';
+import { traitsFromMoras } from './js/traits.js';
+import { STYLES } from './js/styles/index.js';
+import { mulberry32 } from './js/rng.js';
+
+const INPUTS = ['にゃーん', 'どどどん', 'がこっ', 'しゅわしゅわ', 'あ'];
+// 意図的に無音区間を持つ・意図的にクリップするスタイルは基準を変える
+const SILENT_OK = new Set(['freeze']);
+const CLIP_OK = new Set(['bakuon']);
+
+async function render(variant, trs, seed, seconds) {
+  const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+  const oc = new OAC(1, Math.ceil(44100 * seconds), 44100);
+  const out = oc.createGain(); out.gain.value = 0.9;
+  const comp = oc.createDynamicsCompressor();
+  out.connect(comp); comp.connect(oc.destination);
+  let end = 0;
+  try { end = variant.run(oc, out, trs, mulberry32(seed), 0.02) || 0; }
+  catch (e) { return { error: e.message }; }
+  const buf = await oc.startRendering();
+  const d = buf.getChannelData(0);
+  let sum = 0, peak = 0, nan = 0;
+  for (let i = 0; i < d.length; i++) {
+    const v = d[i];
+    if (!Number.isFinite(v)) { nan++; continue; }
+    sum += v * v;
+    const a = Math.abs(v); if (a > peak) peak = a;
+  }
+  return { rms: Math.sqrt(sum / d.length), peak, nan, scheduledEnd: end };
+}
+
+document.getElementById('run').onclick = async () => {
+  const tb = document.querySelector('#tbl tbody');
+  tb.innerHTML = '';
+  let pass = 0, fail = 0, warn = 0;
+  for (const s of STYLES) {
+    for (const v of s.variants) {
+      const text = INPUTS[(s.id.length + v.id.length) % INPUTS.length];
+      const trs = traitsFromMoras(toMoras(text));
+      const r = await render(v, trs, 12345, 8);
+      const tr = document.createElement('tr');
+      let verdict, cls;
+      if (r.error) { verdict = '例外: ' + r.error; cls = 'ng'; fail++; }
+      else if (r.nan > 0) { verdict = `NaN ${r.nan}個`; cls = 'ng'; fail++; }
+      else if (r.rms < 0.0008 && !SILENT_OK.has(s.id)) { verdict = 'ほぼ無音'; cls = 'ng'; fail++; }
+      else if (r.peak > 1.0 && !CLIP_OK.has(s.id)) { verdict = 'クリップ'; cls = 'warn'; warn++; }
+      else { verdict = 'OK'; cls = 'ok'; pass++; }
+      tr.innerHTML = `<td>${s.emoji} ${s.label}</td><td>${v.label}</td><td>${text}</td>` +
+        `<td class="n">${r.rms == null ? '-' : r.rms.toFixed(4)}</td>` +
+        `<td class="n">${r.peak == null ? '-' : r.peak.toFixed(3)}</td>` +
+        `<td class="n">${r.scheduledEnd ? r.scheduledEnd.toFixed(2) + 's' : '-'}</td>` +
+        `<td class="${cls}">${verdict}</td>`;
+      tb.appendChild(tr);
+    }
+  }
+  document.getElementById('summary').innerHTML =
+    `<span class="ok">OK ${pass}</span> / <span class="warn">警告 ${warn}</span> / <span class="ng">NG ${fail}</span>`;
+};
+</script>
+</body>
+</html>

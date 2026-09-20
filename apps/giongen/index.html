@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ぎおんジェネレーター</title>
+<meta name="description" content="ひらがなを いれると、もじに かけない おとが なる。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>🔊 ぎおんジェネレーター</h1>
+    <span class="tag">もじを いれると おとが なるよ</span>
+  </header>
+
+  <!-- 入力表示 -->
+  <section class="display">
+    <div id="shown" aria-live="polite"></div>
+    <div class="disp-row">
+      <button type="button" id="backBtn" class="btn-ghost">🔙 1もじ けす</button>
+      <button type="button" id="clearBtn" class="btn-ghost">🗑 ぜんぶ けす</button>
+    </div>
+    <canvas id="viz" width="800" height="42" aria-hidden="true"></canvas>
+  </section>
+
+  <!-- おまかせ -->
+  <section class="auto">
+    <div class="auto-row">
+      <button type="button" id="autoBtn" class="btn-go">🎯 おまかせで ならす</button>
+      <button type="button" id="rerollBtn" class="btn-ghost">🎲 べつの</button>
+    </div>
+    <div id="autoResult" aria-live="polite"></div>
+  </section>
+
+  <!-- 五十音キーボード -->
+  <section class="kb">
+    <div class="kb-grid" id="kbGrid"></div>
+    <div class="kb-tools">
+      <button type="button" id="dakuBtn"  aria-pressed="false">゛だくてん</button>
+      <button type="button" id="handaBtn" aria-pressed="false">゜はんだく</button>
+      <button type="button" id="smallBtn" aria-pressed="false">ちいさく</button>
+      <button type="button" data-insert="ー">ー のばす</button>
+      <button type="button" data-insert="っ">っ つまる</button>
+      <button type="button" data-insert="ん">ん</button>
+    </div>
+    <label class="visually-hidden" for="txt">もじを キーボードで いれる</label>
+    <input id="txt" type="text" inputmode="text" autocomplete="off" spellcheck="false"
+           placeholder="キーボードで うっても いいよ">
+  </section>
+
+  <!-- スタイル選択 -->
+  <details class="picker" id="picker">
+    <summary><span>🎨 おとを えらぶ</span><span id="pickerNow">おまかせ</span></summary>
+    <div class="picker-body">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="styles" id="styles"></div>
+      <div class="kb-tools" style="margin-top:10px">
+        <button type="button" id="adultBtn" aria-pressed="false">🔞 おとなモード</button>
+        <button type="button" id="randStyleBtn" class="btn-ghost">🎲 ランダム</button>
+      </div>
+    </div>
+  </details>
+
+  <!-- ほぞん -->
+  <section class="saves">
+    <strong>⭐ ほぞんした おと</strong>
+    <div class="save-list" id="saveList"></div>
+    <p class="empty" id="saveEmpty">まだ ないよ。きにいった おとを ⭐で ほぞんしてね。</p>
+    <div class="learn">
+      <span>🧠 まなび <b id="learnCount">0</b> かい</span>
+      <span class="meter"><i id="learnBar"></i></span>
+      <button type="button" id="forgetBtn" class="btn-ghost" style="min-height:40px">🧹 わすれる</button>
+    </div>
+  </section>
+
+  <footer>
+    おとは ぜんぶ ブラウザの なかで つくっています（ろくおん そざいは つかっていません）。<br>
+    iPhone は マナーモードだと おとが でません。
+  </footer>
+</div>
+
+<!-- 下部固定 -->
+<div class="dock">
+  <div class="dock-inner">
+    <button type="button" id="playBtn" class="btn-go">▶ ならす</button>
+    <button type="button" id="stopBtn" class="btn-ghost">■</button>
+    <button type="button" id="saveBtn" class="btn-star">⭐</button>
+  </div>
+</div>
+
+<dialog id="warnDlg">
+  <h2>⚠️ ちゅうい</h2>
+  <p id="warnText"></p>
+  <div class="row">
+    <button type="button" id="warnCancel" class="btn-ghost">やめる</button>
+    <button type="button" id="warnOk" class="btn-go">わかった</button>
+  </div>
+</dialog>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

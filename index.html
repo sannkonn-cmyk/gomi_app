@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ゴミアプリ</title>
+<meta name="description" content="小さくて実用性が低くて、でも触ると楽しいアプリ置き場。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap">
+<style>
+:root{--bg:#FFF8EF;--surface:#fff;--ink:#2A2118;--muted:#7A6A57;--line:#EBDCC8;--accent:#E8542F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#18120C;--surface:#241B12;--ink:#F6ECE0;--muted:#B39D84;--line:#3A2C1E;--accent:#FF7A55}}
+:root[data-theme="dark"]{--bg:#18120C;--surface:#241B12;--ink:#F6ECE0;--muted:#B39D84;--line:#3A2C1E;--accent:#FF7A55}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN",-apple-system,sans-serif;line-height:1.7}
+.wrap{max-width:640px;margin:0 auto;padding-inline:16px;padding-block:48px}
+h1{font-size:clamp(28px,7vw,40px);margin:0 0 6px;font-weight:900}
+.sub{color:var(--muted);margin:0 0 32px;font-size:15px}
+a.card{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit;
+  background:var(--surface);border:3px solid var(--line);border-radius:18px;padding:18px;
+  box-shadow:0 2px 0 rgba(0,0,0,.08);margin-bottom:12px}
+a.card:hover{border-color:var(--accent)}
+a.card .e{font-size:38px}
+a.card b{display:block;font-size:19px}
+a.card span{font-size:13px;color:var(--muted)}
+footer{margin-top:40px;font-size:13px;color:var(--muted)}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🗑 ゴミアプリ</h1>
+  <p class="sub">小さくて実用性が低くて、でも触ると楽しいアプリ置き場。</p>
+
+  <a class="card" href="apps/giongen/">
+    <span class="e">🔊</span>
+    <span><b>ぎおんジェネレーター</b>
+    <span>ひらがなを いれると、文字に書き起こせない音が鳴る</span></span>
+  </a>
+
+  <footer>
+    <a href="https://github.com/sannkonn-cmyk/gomi_app">ソース</a>
+  </footer>
+</div>
+</body>
+</html>
