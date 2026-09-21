@@ -1,0 +1,165 @@
+/* ちびっこが独力で操作できることを最優先。
+   文字が読めなくても絵文字で選べる／タップ領域は最小48px／高コントラスト。 */
+:root{
+  --bg:#FFF8EF; --surface:#FFFFFF; --surface2:#FDF0E0;
+  --ink:#2A2118; --muted:#7A6A57; --line:#EBDCC8;
+  --accent:#E8542F; --accent-ink:#FFFFFF; --accent-soft:#FFE3D8;
+  --go:#1FA97A; --go-soft:#DDF5EC;
+  --star:#F2A81D; --star-soft:#FFF1D4;
+  --warn:#C0392B; --warn-soft:#FBE4E1;
+  --radius:18px;
+  --shadow:0 2px 0 rgba(42,33,24,.10), 0 10px 24px -14px rgba(42,33,24,.35);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#18120C; --surface:#241B12; --surface2:#2E2318;
+  --ink:#F6ECE0; --muted:#B39D84; --line:#3A2C1E;
+  --accent:#FF7A55; --accent-ink:#241B12; --accent-soft:#3A2118;
+  --go:#3FD3A0; --go-soft:#123026;
+  --star:#FFC552; --star-soft:#33260F;
+  --warn:#FF7A6B; --warn-soft:#3A1C18;
+  --shadow:0 2px 0 rgba(0,0,0,.35), 0 12px 28px -16px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --bg:#18120C; --surface:#241B12; --surface2:#2E2318;
+  --ink:#F6ECE0; --muted:#B39D84; --line:#3A2C1E;
+  --accent:#FF7A55; --accent-ink:#241B12; --accent-soft:#3A2118;
+  --go:#3FD3A0; --go-soft:#123026;
+  --star:#FFC552; --star-soft:#33260F;
+  --warn:#FF7A6B; --warn-soft:#3A1C18;
+  --shadow:0 2px 0 rgba(0,0,0,.35), 0 12px 28px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN",-apple-system,"Noto Sans JP",sans-serif;
+  font-size:16px; line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:820px; margin:0 auto; padding-inline:16px; padding-block:20px 160px}
+
+header{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:14px}
+h1{font-size:clamp(22px,5.5vw,30px); font-weight:800; margin:0; letter-spacing:-.01em}
+.tag{font-size:12px; color:var(--muted)}
+
+/* ---- 入力表示 ---- */
+.display{
+  background:var(--surface); border:3px solid var(--line); border-radius:var(--radius);
+  padding:14px 16px; box-shadow:var(--shadow); margin-bottom:12px;
+}
+#shown{
+  font-size:clamp(28px,8vw,44px); font-weight:800; line-height:1.25;
+  min-height:1.3em; word-break:break-all; letter-spacing:.02em;
+}
+#shown:empty::before{content:"ここに もじが でるよ"; color:var(--muted); font-size:20px; font-weight:400}
+.disp-row{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
+.disp-row button{flex:0 0 auto}
+
+/* ---- ボタン共通 ---- */
+button{
+  font-family:inherit; font-weight:700; cursor:pointer;
+  border:2px solid var(--line); background:var(--surface); color:var(--ink);
+  border-radius:12px; min-height:48px; padding:0 14px; font-size:16px;
+  transition:transform .06s;
+}
+button:active{transform:translateY(2px)}
+button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+.btn-go{background:var(--go); border-color:var(--go); color:#fff}
+.btn-star{background:var(--star); border-color:var(--star); color:#3A2A08}
+.btn-ghost{background:var(--surface2)}
+
+/* ---- 五十音キーボード ---- */
+.kb{background:var(--surface); border:3px solid var(--line); border-radius:var(--radius);
+    padding:12px; box-shadow:var(--shadow); margin-bottom:12px}
+.kb-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:6px}
+.kb-grid button{min-height:52px; font-size:24px; font-weight:800; padding:0; border-radius:10px}
+.kb-grid button.blank{visibility:hidden}
+.kb-tools{display:flex; gap:6px; margin-top:8px; flex-wrap:wrap}
+.kb-tools button{flex:1 1 30%; min-width:92px; font-size:14px; white-space:nowrap}
+.kb-tools button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+#txt{
+  width:100%; margin-top:10px; font-family:inherit; font-size:17px; font-weight:600;
+  padding:10px 12px; border:2px solid var(--line); border-radius:10px;
+  background:var(--surface2); color:var(--ink);
+}
+#txt:focus{outline:none; border-color:var(--accent)}
+
+/* ---- おまかせ ---- */
+.auto{
+  background:var(--go-soft); border:3px solid var(--go); border-radius:var(--radius);
+  padding:14px; margin-bottom:12px;
+}
+.auto-row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+#autoBtn{flex:1 1 220px; min-height:60px; font-size:20px}
+#autoResult{margin-top:10px; font-size:16px; font-weight:700; min-height:1.6em}
+#autoResult .why{font-weight:400; color:var(--muted); font-size:14px}
+
+/* ---- スタイル選択 ---- */
+details.picker{margin-bottom:12px}
+details.picker>summary{
+  list-style:none; cursor:pointer; background:var(--surface); border:3px solid var(--line);
+  border-radius:var(--radius); padding:12px 16px; font-weight:800; font-size:17px;
+  box-shadow:var(--shadow); display:flex; justify-content:space-between; align-items:center;
+}
+details.picker>summary::-webkit-details-marker{display:none}
+details.picker[open]>summary{border-bottom-left-radius:0; border-bottom-right-radius:0}
+.picker-body{background:var(--surface); border:3px solid var(--line); border-top:0;
+  border-radius:0 0 var(--radius) var(--radius); padding:12px}
+.tabs{display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:10px}
+.tabs button{flex:0 0 auto; font-size:15px; min-height:44px; padding:0 12px}
+.tabs button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+.styles{display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:8px}
+.styles button{
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  min-height:86px; padding:6px 4px; font-size:12px; line-height:1.25; text-align:center;
+}
+.styles button .e{font-size:30px; line-height:1.1}
+.styles button[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+.styles button.locked{border-color:var(--warn); background:var(--warn-soft)}
+
+/* ---- ほぞん ---- */
+.saves{background:var(--surface); border:3px solid var(--line); border-radius:var(--radius);
+  padding:12px; box-shadow:var(--shadow)}
+.save-list{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; margin-top:10px}
+.save-card{display:flex; align-items:center; gap:6px; border:2px solid var(--line);
+  border-radius:12px; padding:8px; background:var(--surface2)}
+.save-card .play{flex:1; min-height:44px; text-align:left; border:0; background:none;
+  font-size:16px; font-weight:800; padding:0 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.save-card .sub{display:block; font-size:11px; font-weight:400; color:var(--muted)}
+.save-card .del{min-height:40px; min-width:40px; padding:0; border-radius:10px; font-size:14px}
+.empty{color:var(--muted); font-size:14px; margin:8px 0 0}
+
+/* ---- 学習メーター ---- */
+.learn{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:12px;
+  font-size:14px; color:var(--muted)}
+.meter{flex:1 1 120px; height:12px; background:var(--surface2); border-radius:99px; overflow:hidden;
+  border:2px solid var(--line)}
+.meter i{display:block; height:100%; background:var(--star); width:0}
+
+/* ---- 下部固定のならすボタン ---- */
+.dock{
+  position:fixed; left:0; right:0; bottom:0; z-index:10;
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter:blur(8px); border-top:3px solid var(--line);
+  padding:10px 16px; padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+}
+.dock-inner{max-width:820px; margin:0 auto; display:flex; gap:10px; align-items:center}
+#playBtn{flex:1; min-height:62px; font-size:22px; font-weight:800}
+#stopBtn{min-width:64px}
+#saveBtn{min-width:64px; font-size:20px}
+
+/* ---- 再生中のビジュアル ---- */
+#viz{width:100%; height:42px; display:block; margin-top:10px; border-radius:10px; background:var(--surface2)}
+
+/* ---- 警告 ---- */
+dialog{border:3px solid var(--warn); border-radius:var(--radius); background:var(--surface);
+  color:var(--ink); max-width:360px; padding:18px; box-shadow:var(--shadow)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog h2{margin:0 0 8px; font-size:19px; color:var(--warn)}
+dialog p{font-size:14px; margin:0 0 14px}
+dialog .row{display:flex; gap:8px}
+dialog .row button{flex:1}
+
+footer{margin-top:24px; font-size:12px; color:var(--muted); text-align:center}
+footer a{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
